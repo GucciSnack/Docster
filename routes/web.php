@@ -56,13 +56,19 @@ Route::group([
     Route::get('view-document/{fakepath}', 'ViewLinkController@show')->name('viewlink.show');
 
     #endregion
-    #region SignerController
-    Route::resource('signer', 'SignerController');
-    Route::post('sign-document/{signer}', 'SignerController@requestAccess')->name('signer.requestAccess');
-    Route::get('sign-document/{signer}', 'SignerController@show');
-
-    #endregion
 });
+
+
+#region ViewLinkController
+Route::get('view-document/{fakepath}', 'ViewLinkController@show')->name('viewlink.show');
+
+#endregion
+#region SignerController
+Route::resource('signer', 'SignerController');
+Route::post('sign-document/{signer}', 'SignerController@requestAccess')->name('signer.requestAccess');
+Route::get('sign-document/{signer}', 'SignerController@show');
+
+#endregion
 
 Auth::routes([
     'register'  => true,

@@ -51,6 +51,6 @@ class Signer extends Model
         }
 
         // send out email
-        Mail::to($this->email)->send(new SignatureRequest($this, $authCode));
+        Mail::to($this->email)->send(new SignatureRequest($this, $signerId, $authCode));
     }
 }
