@@ -1,0 +1,1 @@
+@include('app.template.create', ['edit'=>true, 'template'=>$template])
