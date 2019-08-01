@@ -29,7 +29,16 @@ class Signer extends Model
      *  Creates an authorization code
      */
     public function generateAuthCode(){
-        $signerId = ($this->id === null) ? Signer::count() + 1 : $this->id;
+        if ($this->id === null) {
+            $lastSigner = Signer::orderBy('id', 'desc')->first();
+            if ($lastSigner === null){
+                $signerId = 1;
+            } else {
+                $signerId = $lastSigner->id + 1;
+            }
+        } else {
+            $signerId = $this->id;
+        }
 
         // create auth code
         $authCode = AuthorizationCode::generateCode(6, date('YmdHis'));
