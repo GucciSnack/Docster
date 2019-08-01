@@ -1,6 +1,7 @@
 <?php
 return [
     #region Routes
+    'pages.login'                   => 'Login',
     'pages.dashboard'               => 'Dashboard',
     'pages.template.index'          => 'Templates',
     'pages.template.create'         => 'Create Template',

@@ -65,7 +65,7 @@ class Document extends Model
                         $processedContent = str_replace($var_name, "<img src='{$signer->signature_data}' style='height:120px;border-bottom:1px solid black;' />", $processedContent);
                     } else {
                         // place a line for manual signing
-                        $processedContent = str_replace($var_name, "_______________________________________________________", $processedContent);
+                        $processedContent = str_replace($var_name, "__________________________________", $processedContent);
                     }
                 } else {
                     $processedContent = str_replace($var_name, "{$variables->$variableName->value}", $processedContent);

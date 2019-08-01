@@ -14,16 +14,18 @@ class SignatureRequest extends Mailable
 
     private $authCode;
     private $signer;
+    private $signerId;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(Signer $signer, string $authCode)
+    public function __construct(Signer $signer, int $signerId,  string $authCode)
     {
         $this->signer = $signer;
         $this->authCode = $authCode;
+        $this->signerId = $signerId;
     }
 
     /**
@@ -35,6 +37,7 @@ class SignatureRequest extends Mailable
     {
         return $this->view('mail.signatureRequest', [
             'signer'    => $this->signer,
+            'signer_id' => $this->signerId,
             'auth_code' => $this->authCode
         ]);
     }

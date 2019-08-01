@@ -9,5 +9,5 @@
     Enter the code: <b>{{ $auth_code }}</b>
     <br />
     <br />
-    <a href="{{ url('sign-document/' . $signer->id) }}">Sign Document</a>
+    <a href="{{ url('sign-document/' . $signer_id ) }}">Sign Document</a>
 </div>
