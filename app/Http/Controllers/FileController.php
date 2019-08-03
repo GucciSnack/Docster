@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\File;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 
 class FileController extends Controller
@@ -14,7 +15,9 @@ class FileController extends Controller
      */
     public function index()
     {
-        //
+        return view('app.files.manage', [
+            'files' => File::all()
+        ]);
     }
 
     /**
@@ -97,6 +100,7 @@ class FileController extends Controller
      */
     public function destroy(File $file)
     {
-        //
+        unlink('storage/app/public/' . $file->file_path);
+        $file->delete();
     }
 }

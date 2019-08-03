@@ -7,7 +7,13 @@ return [
     'pages.template.create'         => 'Create Template',
     'pages.template.edit'           => 'Edit Template',
     'pages.media'                   => 'Media',
+    'pages.files'                   => 'Images',
     'pages.document.edit'           => 'Edit Document',
+    'pages.document.create'         => 'Create Dashboard',
+    'pages.users'                   => 'Users',
+    'pages.settings'                => 'Settings',
+    'pages.account.manage'          => 'Manage Account',
+    'pages.application.install'     => 'Install Application',
 
     #endregion
     #region General
@@ -76,6 +82,13 @@ return [
     'auth.password'             => 'Password',
 
     #endregion
+    #region Files
+    'files.images'              => 'Images',
+    'files.name'                => 'Name',
+    'files.created'             => 'Created',
+    'files.all'                 => 'All Images',
+
+    #endregion
     #region Signer
     'signer.enter_code'         => 'Enter Authorization Code',
     'signer.enter_code_info'    => 'Enter the authorization code provided to you in the signature request email.',
@@ -85,6 +98,14 @@ return [
     'signer.sign_above'         => 'Sign Above',
     'signer.no_signature'       => 'Action Needed',
     'signer.no_signature_info'  => 'You have not yet signed this document. You may sign at the bottom once you have read, understand, and acknowledge all agreements on the document.',
+
+    #endregion
+    #region Users
+    'users'                     => 'Users',
+
+    #endregion
+    #region Settings
+    'settings'                  => 'System Settings',
 
     #endregion
 ];

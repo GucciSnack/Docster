@@ -6,7 +6,7 @@
         <a href="{{ route('template.create') }}" class="btn btn-outline-primary">@lang('app.templates.add')</a>
     </div>
     <h2>@lang('app.templates')</h2>
-    <div id="templates.search.form" class="form-inline">
+    <div id="templates.search.form" class="form-inline d-none">
         <input id="templates.search.input" type="text" class="form-control mt-2 mb-2 col-12 col-md-4 col-lg-3 icon-search mr-3" placeholder="@lang('app.templates.search')" />
     </div>
     <ul class="nav nav-tabs border-0" id="myTab" role="tablist">

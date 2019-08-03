@@ -46,7 +46,7 @@ class TemplateController extends Controller
         ]);
 
         // if we're updating, pass to the update
-        if($request->input('template_id'))
+        if ($request->input('template_id'))
         {
             $this->update($request, Template::find($request->input('template_id')));
             return redirect()->route('template.index');
@@ -63,7 +63,10 @@ class TemplateController extends Controller
         // create variables
         $variables = $request->input('variables');
         $signatures = ($request->input('signatures') != null) ? $request->input('signatures') : [];
-        $template->saveVariables($variables, $signatures);
+
+        if ($variables !== null) {
+            $template->saveVariables($variables, $signatures);
+        }
 
         return redirect()->route('template.index');
     }
@@ -130,7 +133,7 @@ class TemplateController extends Controller
      */
     public function destroy(Template $template)
     {
-        if($template != null){
+        if ($template != null) {
             $template->variables()->delete();
             $template->delete();
             return response()->json(['destroyed'=>1]);

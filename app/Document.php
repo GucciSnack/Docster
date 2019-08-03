@@ -28,21 +28,29 @@ class Document extends Model
      * @return false|mixed|string
      */
     public function setVariables($variablesArr, $signatureArr){
-        foreach($variablesArr as $variable => $value){
-            $variablesArr[$variable] = [
-                'value' => $value,
-                'signature_field' => $signatureArr[$variable]
-            ];
+        if ($variablesArr !== null && is_array($variablesArr) === true) {
+            foreach ($variablesArr as $variable => $value) {
+                $variablesArr[$variable] = [
+                    'value' => $value,
+                    'signature_field' => $signatureArr[$variable]
+                ];
+            }
+            $this->variable_values = json_encode($variablesArr);
+            return $this->variable_values;
         }
-        $this->variable_values = json_encode($variablesArr);
-        return $this->variable_values;
+        return json_encode([]);
     }
 
     /**
      * @return mixed
      */
     public function getVariables(){
-        return json_decode($this->variable_values);
+        $variables = json_decode($this->variable_values);
+        if (is_object($variables)) {
+            return $variables;
+        } else {
+            return [];
+        }
     }
 
     /**

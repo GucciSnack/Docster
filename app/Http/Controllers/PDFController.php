@@ -21,7 +21,7 @@ class PDFController extends Controller
 
         return response($pdf->download("{$template->name}.pdf"), 200)->withHeaders([
             'Content-Type' => 'application/pdf',
-            'Content-Disposition' => "inline; filename='{$template->name}'",
+            'Content-Disposition' => "inline; filename={$template->name}.pdf",
         ]);
     }
 
@@ -37,7 +37,7 @@ class PDFController extends Controller
 
         return response($pdf->download("{$document->name}.pdf"), 200)->withHeaders([
             'Content-Type' => 'application/pdf',
-            'Content-Disposition' => "inline; filename='{$document->name}'",
+            'Content-Disposition' => "inline; filename={$document->name}.pdf",
         ]);
     }
 
@@ -53,7 +53,7 @@ class PDFController extends Controller
 
         return response($pdf->download($request->input('name')), 200)->withHeaders([
             'Content-Type' => 'application/pdf',
-            'Content-Disposition' => "inline; filename='{$request->input('name')}'",
+            'Content-Disposition' => "inline; filename={$request->input('name')}.pdf",
         ]);
     }
 }

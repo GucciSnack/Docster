@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row">
                 <!-- begin::variable options -->
-                <div id="variables-column" class="col-md-2 @if($edit ?? false) @else d-none @endif">
+                <div id="variables-column" class="col-md-2 @if(($edit ?? false) && is_object($document->getVariables()) === true) @else d-none @endif">
                     <div class="card">
                         <div class="card-header text-white bg-primary">
                             @lang('app.variables.fields')
@@ -34,7 +34,7 @@
 
                 <!-- end::variable options -->
                 <!-- begin::document editor -->
-                <div id="document-column" class="@if($edit ?? false) col-md-10 border-left @else col-md-12 @endif border-primary">
+                <div id="document-column" class="@if(($edit ?? false) && is_object($document->getVariables()) === true) col-md-10 border-left @else col-md-12 @endif border-primary">
                     <button type="submit" href="#" class="btn btn-primary float-right">
                         @if($edit ?? false)
                             <input type="hidden" name="document_id" value="{{ $document->id }}" />
@@ -62,12 +62,14 @@
                                 @endforeach
                             </select>
                             <input type="hidden" name="template_id" value="{{ old('template_id') ?? $template_id ?? 0 }}" />
-                            <input type="text" class="form-control p-4 mb-3" name="name" placeholder="@lang('app.documents.input.name')" value="{{ old('name') ?? $document->name ?? '' }}" />
+                            <input type="text" class="form-control p-4" name="name" placeholder="@lang('app.documents.input.name')" value="{{ old('name') ?? $document->name ?? '' }}" />
                             @if ($errors->has('name'))
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('name') }}</strong>
                                 </span>
                             @endif
+                            <div class="mb-3"></div>
+
                             @include('includes.tinymce', ['name'=>'content', 'content'=> old('content') ?? $content ?? $document->content ?? ''])
                             @if ($errors->has('content'))
                                 <span class="invalid-feedback" role="alert">

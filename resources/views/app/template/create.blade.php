@@ -46,8 +46,20 @@
                     </ul>
                     <div class="tab-content py-4" id="myTabContent">
                         <div class="tab-pane fade show active" id="templates" role="tabpanel" aria-labelledby="templates-tab">
-                            <input type="text" class="form-control p-4 mb-3" name="name" placeholder="@lang('app.templates.input.name')" value="{{ $template->name ?? '' }}" />
-                            @include('includes.tinymce', ['name'=>'content', 'content'=>$template->content ?? ''])
+                            <input type="text" class="form-control p-4" name="name" placeholder="@lang('app.templates.input.name')" value="{{ old('name') ?? $template->name ?? '' }}" />
+                            @if ($errors->has('name'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('name') }}</strong>
+                                </span>
+                            @endif
+                            <div class="mb-3"></div>
+
+                            @include('includes.tinymce', ['name'=>'content', 'content'=> old('content') ?? $template->content ?? ''])
+                            @if ($errors->has('content'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('content') }}</strong>
+                                </span>
+                            @endif
                         </div>
                     </div>
                 </div>

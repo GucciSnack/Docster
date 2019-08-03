@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\AllPartiesSigned;
 use App\ViewLink;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use App\Document;
-use App\Mail\SignatureRequest;
 use Illuminate\Hashing\BcryptHasher;
 use App\Signer;
 use Illuminate\Http\Request;
@@ -146,6 +147,28 @@ class SignerController extends Controller
         $signer->signature_data = json_decode($request->input('signature'));
         $signer->update();
 
+        // check if all parties have signed
+        $allPartiesSigned = true;
+        foreach ($signer->document->signers as $checkSigner) {
+            if (empty($checkSigner->signature_data) === true || $checkSigner->signature_data === null) {
+                $allPartiesSigned = false;
+            }
+        }
+        if ($allPartiesSigned === true) {
+            foreach ($signer->document->signers as $emailSigner) {
+                // create a view link
+                $allPartiesSignedViewLink = new ViewLink([
+                    'document_id'       => $request->input('document_id'),
+                    'fake_path'         => ViewLink::generateToken(25, date('YmdHis')),
+                    'password'          => ''
+                ]);
+
+                $allPartiesSignedViewLink->save();
+
+                Mail::to($emailSigner->email)->send(new AllPartiesSigned($signer->document->name, $allPartiesSignedViewLink->fake_path));
+            }
+        }
+
         // create a view link
         $newViewLink = new ViewLink([
             'document_id'       => $request->input('document_id'),
@@ -169,7 +192,11 @@ class SignerController extends Controller
         //
     }
 
-    //MQ1Y7R
+    /**
+     * @param Request $request
+     * @param Signer $signer
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function requestAccess(Request $request, Signer $signer)
     {
         if (Hash::check($request->input('code'), $signer->authorizationCode->password)) {

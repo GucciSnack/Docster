@@ -30,12 +30,9 @@ class Signer extends Model
      */
     public function generateAuthCode(){
         if ($this->id === null) {
-            $lastSigner = Signer::orderBy('id', 'desc')->first();
-            if ($lastSigner === null){
-                $signerId = 1;
-            } else {
-                $signerId = $lastSigner->id + 1;
-            }
+            $this->authorization_code_id = 0;
+            $this->save();
+            $signerId = $this->id;
         } else {
             $signerId = $this->id;
         }

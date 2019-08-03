@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\AuthorizationCode;
 use App\Document;
 use App\Template;
 use PDF;
@@ -127,6 +128,9 @@ class DocumentController extends Controller
     {
         if($document != null){
             $document->viewLinks()->delete();
+            foreach ($document->signers as $signer) {
+                AuthorizationCode::where('signer_id', $signer->id)->delete();
+            }
             $document->signers()->delete();
             $document->delete();
             return response()->json(['destroyed'=>1]);
@@ -159,7 +163,7 @@ class DocumentController extends Controller
 
         return response($pdf->download("{$document->name}.pdf"), 200)->withHeaders([
             'Content-Type' => 'application/pdf',
-            'Content-Disposition' => "inline; filename='{$document->name}'",
+            'Content-Disposition' => "inline; filename={$document->name}.pdf",
         ]);
     }
 }

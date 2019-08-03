@@ -18,7 +18,7 @@ class CreateSignersTable extends Migration
             $table->integer('document_id');
             $table->integer('authorization_code_id');
             $table->string('email');
-            $table->text('signature_data')->default('');
+            $table->text('signature_data')->nullable();
             $table->timestamps();
         });
     }

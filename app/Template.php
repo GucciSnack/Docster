@@ -21,36 +21,39 @@ class Template extends Model
      * @param $signatures
      */
     public function saveVariables($variables, $signatures){
-        foreach($variables as $k => $v){
-            $variable = Variable::where([
-                'template_id'   => $this->id,
-                'variable'      => $k
-            ])->first();
+        if ($variables !== null && is_array($variables) === true) {
+            foreach ($variables as $k => $v) {
+                $variable = Variable::where([
+                    'template_id'   => $this->id,
+                    'variable'      => $k
+                ])->first();
 
-            if($variable != null){
-                // update
-                $variable->name = $v;
-                $variable->signature_field = (count($signatures) && isset($signatures[$k]) &&  (int)$signatures[$k] == 1) ? 1 : 0;
+                if($variable != null){
+                    // update
+                    $variable->name = $v;
+                    $variable->signature_field = (count($signatures) && isset($signatures[$k]) &&  (int)$signatures[$k] == 1) ? 1 : 0;
 
-                $variable->update();
-            } else {
-                $variable = new Variable([
-                    'template_id'       => $this->id,
-                    'name'              => $v,
-                    'variable'          => $k,
-                    'signature_field'   => (count($signatures) && isset($signatures[$k]) &&  (int)$signatures[$k] == 1) ? 1 : 0
-                ]);
+                    $variable->update();
+                } else {
+                    $variable = new Variable([
+                        'template_id'       => $this->id,
+                        'name'              => $v,
+                        'variable'          => $k,
+                        'signature_field'   => (count($signatures) && isset($signatures[$k]) &&  (int)$signatures[$k] == 1) ? 1 : 0
+                    ]);
 
-                $variable->save();
+                    $variable->save();
+                }
             }
         }
     }
 
     public function thumbnail(){
-        if(config('APP_ENV') == 'production'){
+        if(false && config('app.env') === 'production'){
+            // Cannot use this method as imagick might not be compiled right.
             $pdfThumb = new \imagick();
             $pdfThumb->setResolution(10, 10);
-            $pdfThumb->readImage("/pdf/preview-template/{$this->id}[0]");
+            $pdfThumb->readImage(url("/pdf/preview-template/{$this->id}[0]"));
             $pdfThumb->setImageFormat('jpg');
             return $pdfThumb;
         }

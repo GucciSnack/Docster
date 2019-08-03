@@ -33,7 +33,7 @@
                 timeout: 60000,
                 success: function (response) {
                     console.log(response);
-                    if(response.file_uploaded == true){
+                    if(response.file_uploaded === true){
                         success(response.location);
                     } else {
                         failure(response);

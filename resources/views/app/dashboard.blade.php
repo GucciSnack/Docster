@@ -2,7 +2,7 @@
 @section('content')
     <!-- begin::document templates -->
     <div class="row mb-5">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <a href="{{ route('template.create') }}" class="btn btn-outline-primary float-right">@lang('app.templates.add')</a>
             <h2>
                 @lang('app.templates')
@@ -17,7 +17,7 @@
                 @endforeach
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 d-none">
             <h2>@lang('app.templates.community')</h2>
         </div>
     </div>
@@ -27,7 +27,7 @@
     <!-- begin::exiting documents -->
     <a href="{{ route('document.create') }}" class="btn btn-outline-primary float-right">@lang('app.documents.add')</a>
     <h2>@lang('app.documents')</h2>
-    <div id="documents.search.form" class="form-inline">
+    <div id="documents.search.form" class="form-inline d-none">
         <input id="document.search.input" type="text" class="form-control mt-2 mb-2 col-12 col-md-4 col-lg-3 icon-search mr-3" placeholder="@lang('app.documents.search')" />
     </div>
     <ul class="nav nav-tabs border-0" id="myTab" role="tablist">

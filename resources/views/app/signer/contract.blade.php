@@ -1,6 +1,6 @@
 @extends('layouts.full_view')
 @section('content')
-    @if ($signer->signature_data === '')
+    @if (empty($signer->signature_data) === true || $signer->signature_data === null)
         <div class="alert alert-warning">
             <h2>
                 @lang('app.signer.no_signature')
@@ -14,7 +14,7 @@
     <div class="border p-5">
         {!! $signer->document->processedDocument() !!}
     </div>
-    @if ($signer->signature_data === '')
+    @if (empty($signer->signature_data) === true || $signer->signature_data === null)
         <div id="signature-pad" class="p-2 border mt-3">
             <canvas class="zindex-modal" width="664" height="373" style="touch-action: none;"></canvas>
             <div class="row col-12">
