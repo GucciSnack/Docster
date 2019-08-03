@@ -11,6 +11,9 @@
 |
 */
 
+Route::get('install', 'InstallerController@installApplication')->name('application.install');
+Route::post('install', 'InstallerController@setConfigurations')->name('application.setConfigurations');
+
 Route::group([
     'middleware' => 'installed'
 ], function () {
@@ -85,7 +88,3 @@ Route::group([
         'register'  => true,
     ]);
 });
-
-Route::get('/', 'InstallerController@installApplication')->name('application.install');
-Route::get('install', 'InstallerController@installApplication')->name('application.install');
-Route::post('install', 'InstallerController@setConfigurations')->name('application.setConfigurations');

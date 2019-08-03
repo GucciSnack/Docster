@@ -10,12 +10,19 @@ class InstallerController extends Controller
 {
     public function installApplication()
     {
+        if (env('APP_INSTALLED') === true) {
+            return redirect()->route('dashboard');
+        }
 
         return view('app.installer.form');
     }
 
     public function setConfigurations(Request $request)
     {
+        if (env('APP_INSTALLED') === true) {
+            return redirect()->route('dashboard');
+        }
+
         $logs = [];
 
         foreach ($request->all() as $key => $value) {
